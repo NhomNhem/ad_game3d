@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class CameraOrbit : MonoBehaviour
 	public bool zoom;
 	public float zoomSpeed = 120.0f;
 
+	private bool cursorVisible = false;
+
 	void Start()
 	{
 		Cursor.lockState = CursorLockMode.Locked;
@@ -24,6 +27,15 @@ public class CameraOrbit : MonoBehaviour
 		Vector3 angles = transform.eulerAngles;
 		x = angles.y;
 		y = angles.x;
+	}
+
+
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			cursorVisible = !cursorVisible;
+			Cursor.visible = cursorVisible;
+			Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+		}
 	}
 
 	void LateUpdate()
